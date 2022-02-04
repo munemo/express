@@ -19,7 +19,7 @@ router.post('/',
 [check('username')
 .notEmpty()
 .withMessage('Username cannot be empty')
-.isLength({min: 5})
+.isLength({min: 3})
 .withMessage('Username must be at leat 5 characters')
 //check('password').notEmpty().withMessage('Password cannot be empty'),
 ], (req, res) =>{

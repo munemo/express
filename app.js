@@ -1,12 +1,13 @@
 const express = require('express')
 const session = require('express-session')
-const mysql = require('mysql2')
+const passport = require('passport')
+const local = require('./strategies/local')
 const store = new session.MemoryStore()
 const usersRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/posts')
-const dotenv = require('dotenv')
 
-dotenv.config()
+
 
 const app = express()
 app.use(session({
@@ -25,8 +26,12 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use('/users',usersRoutes)
 app.use('/posts',postRoutes)
+app.use('/auth', authRoutes)
 
 
 app.listen(3000, () => {
