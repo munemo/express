@@ -8,7 +8,7 @@ const router = Router()
 
 router.get('/', async (req, res) => {
 //geting all users from database
-const results = await database.promise().query(`SELECT * FROM USERS`)
+const results = await database.promise().query(`SELECT * FROM customer`)
 res.status(200).send(results[0])
  
 })
@@ -16,12 +16,14 @@ res.status(200).send(results[0])
 // validating data by using check method when data is posted
 //validationResult method is used to save errors
 router.post('/', 
-[check('username')
+[check('email')
+.isEmail().withMessage('Please enter valid email address').normalizeEmail()
 .notEmpty()
 .withMessage('Username cannot be empty')
 .isLength({min: 3})
-.withMessage('Username must be at leat 5 characters')
-//check('password').notEmpty().withMessage('Password cannot be empty'),
+.withMessage('Username must be at leat 5 characters'),
+check('password').notEmpty().withMessage('Password cannot be empty').isLength({min: 5})
+.withMessage('Password must be at leat 5 characters').isStrongPassword(),
 ], (req, res) =>{
     
     const errors = validationResult(req);
@@ -29,10 +31,11 @@ router.post('/',
         return res.status(403).json({errors: errors.array()})
 
     }
-    const {username, password} = req.body;
-    if(username && password) {
+    const {email, password} = req.body;
+
+    if(email && password) {
         try{
-            database.promise().query(`INSERT INTO USERS VALUES('${username}','${password}')`)
+            database.promise().query(`INSERT INTO customer VALUES('${email}','${password}')`)
             res.status(201).send({msg: 'Created user'})
         }
         catch(err){
