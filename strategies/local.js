@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local')
 const passport = require('passport')
-const db = require('../database')
+const db = require('../config/db')
 
 passport.serializeUser((username, done) => {
     done(null, username)
