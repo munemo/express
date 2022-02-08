@@ -7,6 +7,7 @@ const usersRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/posts')
 const posts = require('./routes/myPosts')
+const users = require('./routes/myUsers')
 
 
 
@@ -34,6 +35,7 @@ app.use(passport.session())
 //app.use('/posts',postRoutes)
 //app.use('/auth', authRoutes)
 app.use('/myPosts', posts)
+app.use('/myUsers', users)
 
 
 app.listen(3000, () =>{
