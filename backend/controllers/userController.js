@@ -4,7 +4,7 @@ const userModel = require('../models/User')
 exports.getAllusers = async (req, res, next, ) => {
     try{
         const [users,_] = await userModel.findAll()
-        res.status(200).json({count: users.length, users})
+        res.status(200).json( users)
     }catch(error)
     {
         console.log(error)

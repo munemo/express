@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const cors = require('cors')
 const passport = require('passport')
 const local = require('./strategies/local')
 const store = new session.MemoryStore()
@@ -13,6 +14,7 @@ const likes = require('./routes/myLikes')
 
 
 const app = express()
+app.use(cors())
 app.use(session({
     secret: 'john',
     cookie: {maxAge: 3000},
@@ -40,6 +42,6 @@ app.use('/users', users)
 app.use('/likes', likes)
 
 
-app.listen(3000, () =>{
+app.listen(4000, () =>{
     console.log('Server running')
 })
