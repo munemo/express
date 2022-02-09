@@ -4,10 +4,10 @@ exports.getAllposts = async (req, res, next, ) => {
     try{
         const [posts,_] = await postModel.findAll()
         res.status(200).json({count: posts.length, posts})
-    }catch(err)
+    }catch(error)
     {
-        console.log(err)
-        next(err)
+        console.log(error)
+        next(error)
     }
 }
 
@@ -19,8 +19,8 @@ exports.createNewPost = async (req, res, next) => {
         res.status(201).json({message: "Post created"})
         
     } catch (error) {
-        console.log(err)
-        next(err)
+        console.log(error)
+        next(error)
         
     }    
 }

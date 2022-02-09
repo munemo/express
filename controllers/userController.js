@@ -5,10 +5,10 @@ exports.getAllusers = async (req, res, next, ) => {
     try{
         const [users,_] = await userModel.findAll()
         res.status(200).json({count: users.length, users})
-    }catch(err)
+    }catch(error)
     {
-        console.log(err)
-        next(err)
+        console.log(error)
+        next(error)
     }
 }
 
@@ -21,8 +21,8 @@ exports.createNewUser = async (req, res, next) => {
         res.status(201).json({message: "User created"})
         
     } catch (error) {
-        console.log(err)
-        next(err)
+        console.log(error)
+        next(error)
         
     }    
 }
@@ -45,7 +45,7 @@ exports.deleteUserById = async (req, res, next) => {
     try {
             let userId = req.params.id
             let [user,_] = await userModel.deleteById(userId)
-            res.status(201).json({message: `Post ${userId} deleted!`} )
+            res.status(201).json({message: `User ${userId} deleted!`} )
     } catch (error) {
         console.log(error)
     }

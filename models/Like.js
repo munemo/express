@@ -1,8 +1,9 @@
 const db = require('../config/db')
-class Post {
-    constructor(title, body) {
-        this.title = title;
-        this.body = body;
+
+class Like {
+    constructor(post_id, user_id) {
+        this.post_id = post_id;
+        this.user_id = user_id;
     }
 
      save() {
@@ -13,14 +14,14 @@ class Post {
         let createdAtDate = `${yyyy}-${mm}-${day}`
 
         let sql = `
-        INSERT INTO posts(
-            title,
-            body,
+        INSERT INTO likes(
+            post_id,
+            user_id,
             created_at
         )
         VALUES(
-            '${this.title}',
-            '${this.body}',
+            '${this.post_id}',
+            '${this.user_id}',
             '${createdAtDate}'
 
         )
@@ -31,20 +32,20 @@ class Post {
 
     static findAll() {
 
-        let sql = "SELECT * FROM posts"
+        let sql = "SELECT * FROM likes"
         return db.execute(sql);
 
     }
 
     static findById(id) {
-        let sql = `SELECT * FROM posts WHERE id = ${id}`
+        let sql = `SELECT * FROM likes WHERE post_id = ${id}`
         return db.execute(sql)
     }
 
     static deleteById(id) {
-        let sql = `DELETE FROM posts WHERE id = ${id}`
+        let sql = `DELETE FROM likes WHERE id = ${id}`
         return db.execute(sql)
     }
 }
 
-module.exports = Post;
+module.exports = Like;

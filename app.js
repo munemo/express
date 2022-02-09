@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth')
 const postRoutes = require('./routes/posts')
 const posts = require('./routes/myPosts')
 const users = require('./routes/myUsers')
+const likes = require('./routes/myLikes')
 
 
 
@@ -34,8 +35,9 @@ app.use(passport.session())
 //app.use('/users',usersRoutes)
 //app.use('/posts',postRoutes)
 //app.use('/auth', authRoutes)
-app.use('/myPosts', posts)
-app.use('/myUsers', users)
+app.use('/posts', posts)
+app.use('/users', users)
+app.use('/likes', likes)
 
 
 app.listen(3000, () =>{
