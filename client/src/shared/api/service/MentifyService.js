@@ -4,8 +4,8 @@ const getAllUsers = () => {
     return http.get(`/users`)
 }
 
-const registerUser = () => {
-    return http.post(`/users`)
+const registerUser = (data) => {
+    return http.post(`/users`, data)
 }
 
 export default {
