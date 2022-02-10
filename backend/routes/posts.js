@@ -1,16 +1,13 @@
 const {Router} = require('express')
-
+const postController = require('../controllers/postController')
 
 const router = Router()
 
-router.get('/', (req, res) => {
- res.send(200)
-})
+router.get('/',postController.getAllposts)
+router.post('/',postController.createNewPost)
+router.get('/:id',postController.getPostById)
+router.get('/delete/:id',postController.deletePostById)
 
 
-router.get('/postTitle/:title', (req, res) => {
-    res.json({title: 'Some random Post'})
-   })
-   
 
 module.exports = router;

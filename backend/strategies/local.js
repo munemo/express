@@ -1,16 +1,16 @@
 const LocalStrategy = require('passport-local')
 const passport = require('passport')
-const db = require('../config/db')
-
-passport.serializeUser((username, done) => {
-    done(null, username)
-    console.log(username)
+const userModel = require('../models/User')
+/*
+passport.serializeUser((email, done) => {
+    done(null, email)
+    console.log(email)
 
 })
 
-passport.deserializeUser(async (username, done) => {
+passport.deserializeUser(async (email, done) => {
     try{    
-        const result = await db.promise().query(`SELECT * FROM USERS WHERE USERNAME = '${username}'`)
+        const result = await db.promise().query(`SELECT * FROM users WHERE email = '${email}'`)
         if(result[0][0]){
              done(null, result[0][0])
         
@@ -22,13 +22,18 @@ passport.deserializeUser(async (username, done) => {
             done(err,null)
     }
     
-})
+})*/
 
 
 passport.use(new LocalStrategy(
-    async (username, password, done) =>{
-        try {
-                const result = await db.promise().query(`SELECT * FROM USERS WHERE USERNAME = '${username}'`)
+    async (email, password, done) =>{
+         
+         const result = await userModel.findByString(email)
+        //const result = await db.promise().query(`SELECT * FROM USERS WHERE EMAIL = '${email}'`)
+        
+         console.log(result)
+       /* try {
+                const result = await db.promise().query(`SELECT * FROM users WHERE email = '${email}'`)
                
                 if(result[0].length === 0){
                      done(null,false)
@@ -43,5 +48,5 @@ passport.use(new LocalStrategy(
     
         } catch (err){
           done(err,false)
-       }
+       }*/
     }))

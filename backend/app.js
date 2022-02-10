@@ -1,20 +1,18 @@
 const express = require('express')
-const session = require('express-session')
+//const session = require('express-session')
 const cors = require('cors')
-const passport = require('passport')
-const local = require('./strategies/local')
-const store = new session.MemoryStore()
-const usersRoutes = require('./routes/users')
-const authRoutes = require('./routes/auth')
-const postRoutes = require('./routes/posts')
-const posts = require('./routes/myPosts')
-const users = require('./routes/myUsers')
-const likes = require('./routes/myLikes')
 
+//const store = new session.MemoryStore()
+
+const authRoute = require('./routes/auth')
+const postRoute = require('./routes/posts')
+const userRoute = require('./routes/users')
+const likeRoute = require('./routes/likes')
 
 
 const app = express()
 app.use(cors())
+/*
 app.use(session({
     secret: 'john',
     cookie: {maxAge: 3000},
@@ -22,24 +20,18 @@ app.use(session({
     resave:false,
     //session store
     store
-}))
+}))*/
 app.use(express.json())
 app.use(express.urlencoded({ extended: false}))
 
 app.use((req, res, next) => {
-    //console.log(store)
+    console.log(`${req.method} - ${req.url} `)
     next();
 })
 
-app.use(passport.initialize())
-app.use(passport.session())
-
-//app.use('/users',usersRoutes)
-//app.use('/posts',postRoutes)
-//app.use('/auth', authRoutes)
-app.use('/posts', posts)
-app.use('/users', users)
-app.use('/likes', likes)
+app.use('/users', userRoute)
+app.use('/likes', likeRoute)
+app.use('/posts', postRoute)
 
 
 app.listen(4000, () =>{

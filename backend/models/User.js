@@ -42,6 +42,12 @@ class User {
         let sql = `SELECT * FROM users WHERE id = ${id}`
         return db.execute(sql)
     }
+
+    static findByString(email) {
+        let sql = "SELECT * FROM users"
+        return db.execute(sql);
+
+    }
     
     
     static deleteById(id) {
