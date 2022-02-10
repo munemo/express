@@ -1,7 +1,8 @@
 const express = require('express')
+const userModel = require('./models/User')
 //const session = require('express-session')
 const cors = require('cors')
-
+const db = require('./config/db')
 //const store = new session.MemoryStore()
 
 const authRoute = require('./routes/auth')
@@ -32,6 +33,20 @@ app.use((req, res, next) => {
 app.use('/users', userRoute)
 app.use('/likes', likeRoute)
 app.use('/posts', postRoute)
+
+app.post('/login', async (req, res) => {
+
+    
+        let {email,password} = req.body
+        let  [user,_] = await userModel.findByString(email,password) 
+        if(user){
+            res.send( user)
+        }else{
+            console.log('No use')
+            res.send({message: "wrong credentials"})
+        }
+     
+})
 
 
 app.listen(4000, () =>{

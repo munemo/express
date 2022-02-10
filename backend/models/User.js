@@ -37,15 +37,16 @@ class User {
 
     }
 
-    
     static findById(id) {
         let sql = `SELECT * FROM users WHERE id = ${id}`
         return db.execute(sql)
     }
 
-    static findByString(email) {
-        let sql = "SELECT * FROM users"
-        return db.execute(sql);
+    static findByString(email,password) {
+        let sql = 'SELECT * FROM users WHERE email = ? AND password = ?'
+        return db.query(sql, [email,password])
+
+           
 
     }
     
