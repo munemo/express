@@ -1,4 +1,7 @@
+const res = require('express/lib/response');
 const db = require('../config/db')
+
+
 class User {
     constructor(email, password){
         this.email = email
@@ -42,12 +45,10 @@ class User {
         return db.execute(sql)
     }
 
-    static findByString(email,password) {
-        let sql = 'SELECT * FROM users WHERE email = ? AND password = ?'
-        return db.query(sql, [email,password])
-
-           
-
+    static findByString(email) {
+        
+        let sql = 'SELECT * FROM users WHERE email =?'
+        return db.query(sql, email)
     }
     
     

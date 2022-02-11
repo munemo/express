@@ -15,11 +15,9 @@ exports.getAllusers = async (req, res, next, ) => {
 }
  
 exports.createNewUser = async (req, res, next) => {
+    let {email, password, user} = req.body
     try {
-       
-        let {email, password} = req.body
         bcrypt.hash(password,saltRounds, async (err,hash) =>{
-        let {email, password, user} = req.body
         let  newUser = new userModel(email, hash, user)
         newUser  = await newUser.save()
         res.status(201).json({message: "User created"})
