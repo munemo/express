@@ -1,5 +1,4 @@
 const {Router} = require('express')
-const database = require('../config/db')
 const userController = require('../controllers/userController')
 
 const router = Router()
@@ -7,6 +6,7 @@ const router = Router()
 router.get('/', userController.getAllusers)
 router.post('/', userController.createNewUser)
 router.get('/:id', userController.getUserById)
+//router.post('/login', userController.loginUser)
 router.get('/delete/:id',userController.deleteUserById)
 
 module.exports = router;

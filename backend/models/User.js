@@ -1,11 +1,11 @@
-const res = require('express/lib/response');
 const db = require('../config/db')
 
 
 class User {
-    constructor(email, password){
+    constructor(email, password, role){
         this.email = email
         this.password = password
+        this.role = role
     }
 
     save() {
@@ -17,14 +17,16 @@ class User {
         let createdAtDate = `${yyyy}-${mm}-${day}`
 
         let sql = `
-        INSERT INTO users(
+        INSERT INTO candidates(
             email,
             password,
+            role,
             created_at
         )
         VALUES(
             '${this.email}',
             '${this.password}',
+            '${this.role}',
             '${createdAtDate}'
 
         )
@@ -35,25 +37,25 @@ class User {
 
     static findAll() {
 
-        let sql = "SELECT * FROM users"
+        let sql = "SELECT * FROM candidates"
         return db.execute(sql);
 
     }
 
     static findById(id) {
-        let sql = `SELECT * FROM users WHERE id = ${id}`
+        let sql = `SELECT * FROM candidates WHERE id = ${id}`
         return db.execute(sql)
     }
 
     static findByString(email) {
         
-        let sql = 'SELECT * FROM users WHERE email =?'
+        let sql = 'SELECT * FROM candidates WHERE email =?'
         return db.query(sql, email)
     }
     
     
     static deleteById(id) {
-        let sql = `DELETE FROM users WHERE id = ${id}`
+        let sql = `DELETE FROM candidates WHERE id = ${id}`
         return db.execute(sql)
     }
 

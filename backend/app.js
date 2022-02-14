@@ -1,5 +1,6 @@
 const dotenv = require('dotenv').config()
 const express = require('express')
+const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const bcrypt = require('bcrypt')
@@ -11,6 +12,7 @@ const likeRoute = require('./routes/likes')
 const jwt = require('jsonwebtoken')
 
 const app = express()
+//specify client origin  and method in cors to be able to work w
 
 app.use(cors({
     origin: ["http://localhost:3000"],
@@ -18,9 +20,25 @@ app.use(cors({
     credentials: true,
 }))
 
+
 app.use(cookieParser())
 app.use(express.json())
 app.use( bodyParser.urlencoded({ extended: true}))
+
+app.use(session({
+    key: 'userId',
+    secret: 'john',
+    cookie: {
+        expires: 60 * 60 * 24
+    },
+    saveUninitialized: false,
+    resave:false
+}))
+
+app.use((req, res, next) => {
+    console.log(`${req.method} - ${req.url} `)
+    next();
+})
 
 app.use('/users', userRoute)
 app.use('/likes', likeRoute)
@@ -69,6 +87,7 @@ app.post('/login', async (req, res) => {
                        const id = user[0].id
                        const token = jwt.sign({id}, key,
                         {expiresIn: 300,})
+                       req.session.user = user
                        res.json({auth: true, token: token, person: user})       
                      }
                     else{
@@ -77,8 +96,10 @@ app.post('/login', async (req, res) => {
                 })
             } else{
                 res.json({auth: false, message: "User does not exist"})  
-            }              
+            }
+                    
 })
+
 
 app.listen(4000, () =>{
     console.log('Server running')
