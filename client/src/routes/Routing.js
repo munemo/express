@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { RegisterView } from '../view/RegisterView'
 import { HomeView } from '../view/HomeView'
@@ -10,7 +10,8 @@ import RoutingPath from './RoutingPath'
 
 
 export const Routing = (props) => {
-	const [authenticatedUser, setAuthenticatedUser] = useContext(UserContext)
+
+	const {authenticatedUser} = useContext(UserContext)
 
 	const blockRouteIfAuthenticated = (navigateToView) => {
 		return authenticatedUser ? HomeView : navigateToView
@@ -20,13 +21,6 @@ export const Routing = (props) => {
 		return !authenticatedUser ? SignInView : navigateToView
 	}
 
-	const checkIfUserIsAuthenticatedInBrowser = () => {
-		setAuthenticatedUser(localStorage.getItem("username"))
-	}
-
-	useEffect(() => {
-		checkIfUserIsAuthenticatedInBrowser()
-	})
 
 	return (
 		<Router>

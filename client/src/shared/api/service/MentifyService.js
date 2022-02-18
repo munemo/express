@@ -16,10 +16,15 @@ const userSession = (data) => {
     return http.get(`/login`, data)
 }
 
+const userAuth = (data) => {
+    return http.get(`/auth`,data )
+}
+
 export default {
     getAllUsers,
     registerUser,
     loginUser,
-    userSession
+    userSession,
+    userAuth
 
 }
