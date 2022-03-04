@@ -16,8 +16,9 @@ class User {
         let day = d.getDate();
         let createdAtDate = `${yyyy}-${mm}-${day}`
 
+
         let sql = `
-        INSERT INTO candidates(
+         INSERT IGNORE INTO candidates(
             email,
             password,
             role,
