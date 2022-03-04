@@ -1,5 +1,4 @@
 const {Router} = require('express')
-const router = Router()
 const jwt = require('jsonwebtoken')
 
 const  verifyJWT = (req, res, next) => {
@@ -22,12 +21,5 @@ const  verifyJWT = (req, res, next) => {
         })
     }
 }
-
-
-router.get('/auth', verifyJWT, (req,res) =>{
-
-    res.send("You are authenticated!")
-})
-
 
 module.exports = verifyJWT

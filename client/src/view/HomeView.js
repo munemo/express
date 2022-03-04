@@ -27,9 +27,7 @@ export const HomeView = () => {
                         
                        </div >) })} 
             </div>
-        }
-    }
-
+        }}
 
     return (
         <div>

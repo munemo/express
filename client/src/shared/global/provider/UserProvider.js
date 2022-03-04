@@ -19,17 +19,19 @@ export const UserProvider = (props) => {
            }else{
                localStorage.setItem("token", response.data.token)
                localStorage.setItem("user", response.data.person[0].email)
+              // console.log(localStorage.getItem('token'))
                setAuthenticatedUser(true)    
                          
            }}
         userLog()
     }
 
-    function checkIfUserAuthenticated() {
+   /* function checkIfUserAuthenticated() {
 
         const userAuth = async () =>{
 
         const response =  await axios.get("http://localhost:4000/auth", {headers:{"x-access-token": localStorage.getItem("token")}})
+        console.log(response)
     } 
         userAuth()
     }
@@ -37,9 +39,9 @@ export const UserProvider = (props) => {
     useEffect(() => {
        
       checkIfUserAuthenticated();
-}, [authenticatedUser]) 
+}, [authenticatedUser]) */
     
-    const values= {authenticatedUser, setAuthenticatedUser,userLogin, setLogin, login, checkIfUserAuthenticated}
+    const values= {authenticatedUser, setAuthenticatedUser,userLogin, setLogin, login}
 
     return (
         <UserContext.Provider value={values}>

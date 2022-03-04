@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const postRoute = require('./routes/posts')
 const userRoute = require('./routes/users')
 const likeRoute = require('./routes/likes')
+const userAuth = require('./routes/auth')
 
 const app = express()
 
@@ -26,39 +27,7 @@ app.use((req, res, next) => {
 app.use('/users', userRoute)
 app.use('/likes', likeRoute)
 app.use('/posts', postRoute)
-
-
-const  verifyJWT = (req, res, next) => {
-    const key = process.env.JWT
-    const token = req.headers["x-access-token"]
-
-    if(!token){
-
-        res.send("You do not have a token and therefore cannot access this content")
-    }else{
-        jwt.verify(token, key, (err, decoded) => {
-
-            if(err) {
-                res.json({auth: false, message: "Authentication failed, please try again with correct credentials"})
-            }
-            else{
-                req.userId = decoded.id
-                next()
-            }
-        })
-    }
-}
-
-
-app.get('/auth', verifyJWT, (req,res) =>{
-
-    res.send("You are authenticated!")
-})
-
-
-module.exports = verifyJWT
-
-
+app.use('/auth', userAuth)
 
 
 app.listen(4000, () =>{

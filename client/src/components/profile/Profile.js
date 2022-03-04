@@ -1,27 +1,22 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../shared/global/provider/UserProvider'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+import MentifyService from '../../shared/api/service/MentifyService'
 import './Profile.css'
 import RoutingPath from '../../routes/RoutingPath'
-//import { parse } from 'dotenv'
 
 export const Profile = () => {
     const history = useHistory()
     const {checkIfUserAuthenticated,authenticatedUser,setAuthenticatedUser} = useContext(UserContext)
 
-      /*
-      const displayUserIfNotAuthenticated = () => {
-        setAuthenticated(false)
-        console.log(' status in displayUserIfNotAuthenticated method:',authenticatedUser)
+    const logout = async() => {
 
-       return (authenticatedUser)
-            ? <div className="profile"> <Profile /> </div>
-            : <span onClick={() => history.push(RoutingPath.signInView)} className="signIn">Sign in</span>
-     */
-    
-    const logout = () => {
-       console.log(' To be removed',localStorage.getItem("user"))   
-    }
+      const response = await MentifyService.logoutUser()
+      console.log(response)
+     // history.push(RoutingPath.signInView)
+
+        }
 
     return (
         <div className="profileWrapper">
@@ -31,8 +26,7 @@ export const Profile = () => {
                 <a onClick={() => history.push(RoutingPath.settingsView)}>Settings</a>
                 <a onClick={() => history.push(RoutingPath.profileView)}>Profile</a>
                 <hr />
-                <a onClick= {() => history.push(RoutingPath.signInView)}>Logout</a>
-                {logout()}
+                <a onClick= {() => logout()}>Logout</a>
             
             </div>
         </div>
