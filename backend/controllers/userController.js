@@ -55,9 +55,9 @@ exports.login = async (req, res, next) => {
 }
 
 exports.logout = async (req, res, next) => {
-
-   
-    
+        //res.cookie('userId', '', {maxAge:1})
+        res.send('thanks for logging out!')
+  
 }
 
 exports.users = async (req, res ,next, ) => {
@@ -86,9 +86,9 @@ exports.getUserById = async (req, res, next) => {
 
 exports.deleteUserById = async (req, res, next) => {
     try {
-            let userId = req.params.id
-            let [user,_] = await userModel.deleteById(userId)
-            res.status(201).json({message: `User ${userId} deleted!`} )
+            let id = req.params.id
+            let [user,_] = await userModel.deleteById(id)
+            res.status(201).json({message: `User ${id} deleted!`} )
     } catch (error) {
         console.log(error)
     }

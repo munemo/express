@@ -7,7 +7,7 @@ const  verifyJWT = (req, res, next) => {
 
     if(!token){
 
-        res.send("You do not have a token and therefore cannot access this content")
+        res.send("You do not have access to this content")
     }else{
         jwt.verify(token, key, (err, decoded) => {
 

@@ -1,11 +1,10 @@
-const userAthentication = require('../auth/auth')
 const {Router} = require('express')
+const userAthentication = require('../auth/auth')
 
-const app = Router()
+const router = Router()
 
-app.get('/check', userAthentication, (req, res) => {
-    console.log('you rock!')
-}
-)
+router.get('/user', userAthentication,  (req, res) =>{
 
-module.exports = app
+})
+
+module.exports = router

@@ -1,12 +1,11 @@
 const dotenv = require('dotenv').config()
 const express = require('express')
-const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const postRoute = require('./routes/posts')
 const userRoute = require('./routes/users')
 const likeRoute = require('./routes/likes')
-const userAuth = require('./routes/auth')
+const auth = require('./routes/auth')
 
 const app = express()
 
@@ -27,7 +26,7 @@ app.use((req, res, next) => {
 app.use('/users', userRoute)
 app.use('/likes', likeRoute)
 app.use('/posts', postRoute)
-app.use('/auth', userAuth)
+app.use('/auth', auth)
 
 
 app.listen(4000, () =>{
