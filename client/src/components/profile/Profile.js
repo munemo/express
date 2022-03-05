@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../shared/global/provider/UserProvider'
 import { useHistory } from 'react-router-dom'
-import axios from 'axios'
 import MentifyService from '../../shared/api/service/MentifyService'
 import './Profile.css'
 import RoutingPath from '../../routes/RoutingPath'
@@ -13,8 +12,11 @@ export const Profile = () => {
     const logout = async() => {
 
       const response = await MentifyService.logoutUser()
-      console.log(response)
-     // history.push(RoutingPath.signInView)
+      localStorage.removeItem("token")
+      localStorage.removeItem("user")
+      setAuthenticatedUser(false)
+
+      history.push(RoutingPath.signInView)
 
         }
 

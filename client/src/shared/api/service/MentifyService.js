@@ -12,27 +12,19 @@ const loginUser = (data) => {
     return http.post(`/users/login`, data)
 }
 
-
 const logoutUser = () => {
-    return http.get(`/logout`)
+    return http.post(`/users/logout`)
 }
 
 
-const userSession = (data) => {
-    return http.get(`/login`, data)
+const deleteUserById = (data) => {
+    return http.get(`/users/delete`,data)
 }
-
-/*
-const userAuth = (data) => {
-    return http.get(`/auth/users`,data )
-}*/
 
 export default {
     getAllUsers,
     registerUser,
     loginUser,
-    userSession,
-    //userAuth,
+    deleteUserById,
     logoutUser
-
 }
