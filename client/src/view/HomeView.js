@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './home/Home.css'
 import MentifyService from '../shared/api/service/MentifyService'
 
 export const HomeView = () => {
@@ -30,7 +31,7 @@ export const HomeView = () => {
         }}
 
     return (
-        <div>
+        <div className='grid-container'>
             
             <h1>Welcome</h1>
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState} from 'react'
 import './NavigationBar.css'
-import Logotype from '../../shared/images/logotype.svg'
+import Logotype from '../../shared/images/logo.png'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from '../../shared/global/provider/UserProvider'
 import { Profile } from '../profile/Profile'
@@ -15,8 +15,7 @@ export const NavigationBar = (props) => {
 
         return (authenticatedUser)
             ? <div className="profile"> <Profile /> </div>
-            : <span onClick={() => history.push(RoutingPath.signInView)} className="signIn">Sign in</span>
-            
+            :  <> <span className="signIn"> <button onClick={() => history.push(RoutingPath.signInView)}>Login</button> <button onClick={() => history.push(RoutingPath.registerView)} >Register</button></span></>
     }
 
     return (
