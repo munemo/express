@@ -1,17 +1,13 @@
-const dotenv = require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const postRoute = require('./routes/posts')
-const userRoute = require('./routes/users')
-const likeRoute = require('./routes/likes')
-const auth = require('./routes/auth')
+const db = require('./models/index')
 
 const app = express()
 
 app.use(cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "DELETE"],
+    methods: ["GET", "POST", "DELETE", "UPDATE"],
     credentials: true,
 }))
 
@@ -23,12 +19,12 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/users', userRoute)
-app.use('/likes', likeRoute)
-app.use('/posts', postRoute)
-app.use('/auth', auth)
-
-
-app.listen(4000, () =>{
-    console.log('Server running')
-})
+require('./routes/users')(app);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+//{ force: true }
+db.sequelize.sync().then(() => {
+  console.log("Drop and re-sync db.");
+});

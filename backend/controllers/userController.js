@@ -7,15 +7,16 @@ exports.register = async (req, res, next) => {
     let {email, password, role} = req.body
     try {
         // Check user enters all fields
-        if (!email || !password) return res.status(400).json({ message: "Please provide email and password" });
+        if (!email || !password  ) return res.status(400).json({ message: "Please fill in all the fields" });
         // Check the user enters the right formatted email
-        const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])$/;
         if (reg.test(email) === false) return res.status(400).json({ message: "Incorrect email format" });
         // Check user password length is more than 8 characters
         if (password.length < 6) return res.status(400).json({ message: "Password must be at least 6 characters long" });
         // create new User object    
         bcrypt.hash(password,saltRounds, async (err,hash) =>{
         let  newUser = new userModel(email, hash, role)
+        console.log(newUser)
         newUser  = await newUser.save()
         res.status(201).json({message: "User created"})
      })
@@ -28,7 +29,9 @@ exports.register = async (req, res, next) => {
 
 
 exports.login = async (req, res, next) => {
-    const key = process.env.JWT
+
+    
+   const key = process.env.JWT
     let {email,password} = req.body
     let  [user,_] = await userModel.findByString(email) 
     try {

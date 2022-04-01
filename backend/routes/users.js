@@ -1,14 +1,36 @@
-const {Router} = require('express')
-const userController = require('../controllers/userController')
-const userAthentication = require('../auth/auth')
+module.exports = app => {
+    const users = require('../controllers/user.Controller');
+    var router = require("express").Router();
 
-const router = Router()
+    router.post("/", users.register);
+    router.get("/:email", users.confirmation);
+    router.post("/login", users.login);
+    router.post("/logout", users.logout);
+    router.post("/preferences/:email", users.preferences);
+   
+    
 
-router.post('/', userController.register)
-router.get('/',  userController.users)
-router.get('/:id',  userController.getUserById)
-router.get('/delete/:id', userAthentication,  userController.deleteUserById)
-router.post('/login', userController.login)
-router.post('/logout', userController.logout)
-
-module.exports = router;
+  
+   
+ 
+  
+    // Retrieve all Tutorials
+    //router.get("/", tutorials.findAll);
+  
+    // Retrieve all published Tutorials
+    //router.get("/published", tutorials.findAllPublished);
+  
+    // Retrieve a single Tutorial with id
+    //router.get("/:id", tutorials.findOne);
+  
+    // Update a Tutorial with id
+   // router.put("/:id", tutorials.update);
+  
+    // Delete a Tutorial with id
+    //router.delete("/:id", tutorials.delete);
+  
+    // Create a new Tutorial
+    //router.delete("/", tutorials.deleteAll);
+  
+    app.use('/users', router);
+  };
